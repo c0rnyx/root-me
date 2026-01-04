@@ -58,7 +58,7 @@ which was abused to escalate privileges and obtain full root access.
 
 <pre><code>gobuster dir -w /usr/share/wordlists/dirb/common.txt -u http://10.82.132.134 </code></pre> 
 <img src="https://i.imgur.com/exdajF9.png" height="80%" width="80%" alt="Gobuster Bruteforce"/>
-<p><strong>Discovered directory:</strong></p>
+<p><strong>Discovered vulnerable directory:</strong></p>
 <pre><code>/panel</code></pre>
 
 <hr>
@@ -74,9 +74,8 @@ alternative file extensions, mixed-case variations, and non-standard PHP extensi
 </p>
 
 <p>
-Initial attempts using common executable extensions such as <code>.php</code> and <code>.phtml</code>
-were correctly rejected by the server. Additional testing was performed using lesser-known
-PHP-related extensions to evaluate the robustness of the server-side validation.
+Initial attempt using a common executable extension <code>.php</code> was rejected by the server.
+Afterwards additional testing was performed using lesser-known PHP-related extensions such as <code>.phtml</code>, in order to evaluate the robustness of the server-side validation. 
 </p>
 
 <p>
