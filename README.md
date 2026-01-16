@@ -1,11 +1,21 @@
-<h1>Web Application Exploitation and Privilege Escalation</h1>
+<h1>Penetration testing report - Root Me</h1>
 
-<h2>Overview</h2>
+<h2>TL;DR - Quick Overview</h2>
 <p>
 This repository documents an authorized, lab-based penetration test against a Linux web server.
 The assessment demonstrates a complete attack chain starting from external enumeration,
 leading to remote code execution via a file upload vulnerability, and concluding with
 local privilege escalation through a misconfigured SUID binary.
+</p>
+
+<p>
+Skills demonstrated include network and web enumeration, file upload vulnerability exploitation,
+service pivoting, and post-exploitation validation.
+</p>
+
+<p>
+All testing was performed in a safe, legal, and authorized lab environment
+for educational and portfolio purposes.
 </p>
 
 <hr>
@@ -37,9 +47,34 @@ which was abused to escalate privileges and obtain full root access.
 
 <hr>
 
-<h2>Enumeration</h2>
+<h2>Scope and Methodology</h2>
 
-<h3>Network Enumeration</h3>
+<h3>Scope</h3>
+<ul>
+  <li>Single target host: <code>10.82.132.134</code></li>
+  <li>Black-box testing approach</li>
+  <li>No credentials provided prior to testing</li>
+</ul>
+
+<h3>Methodology</h3>
+<p>
+The assessment followed a standard penetration testing lifecycle:
+</p>
+<ol>
+  <li>Network enumeration</li>
+  <li>Web application enumeration</li>
+  <li>Authentication analysis</li>
+  <li>Credential attacks</li>
+  <li>Service pivoting</li>
+  <li>Remote code execution</li>
+  <li>Post-exploitation validation</li>
+</ol>
+
+<hr>
+
+<h2>Technical Findings</h2>
+
+<h3>1. Network Enumeration</h3>
 <p>An initial Nmap scan was performed to identify exposed services.</p>
 
 <pre><code>nmap -sS -sV -sC 10.82.132.134 </code></pre>
@@ -53,7 +88,7 @@ which was abused to escalate privileges and obtain full root access.
 
 <hr>
 
-<h3>Web Enumeration</h3>
+<h3>2. Web Enumeration</h3>
 <p>Directory brute-forcing was conducted against the HTTP service.</p>
 
 <pre><code>gobuster dir -w /usr/share/wordlists/dirb/common.txt -u http://10.82.132.134 </code></pre> 
@@ -63,9 +98,7 @@ which was abused to escalate privileges and obtain full root access.
 
 <hr>
 
-<h2>Vulnerability Analysis</h2>
-
-<h3>File Upload Validation Bypass</h3>
+<h3>3. File Upload Validation Bypass</h3>
 
 <p>
 The <code>/panel</code> directory exposed a file upload functionality that was assessed through
@@ -87,7 +120,7 @@ was based solely on a weak, extension-based filtering mechanism.
 
 <hr>
 
-<h2>Initial Access</h2>
+<h3>4. Initial Access</h2>
 
 <p>
 A PHP reverse shell was uploaded using the <code>.php5</code> extension.
@@ -102,7 +135,7 @@ The shell was obtained as the <code>www-data</code> user.
 <img src="https://imgur.com/wm1W48n.png" height="80%" width="80%" alt="www-data user"/>
 <hr>
 
-<h2>Shell Stabilization</h2>
+<h3>5. Shell Stabilization</h2>
 
 <p>
 The initial shell lacked job control and was upgraded to a fully interactive Bash shell.
@@ -112,9 +145,7 @@ The initial shell lacked job control and was upgraded to a fully interactive Bas
 <img src="https://imgur.com/mievAV3.png" height="50%" width="50%" alt="stabilizing the shell"/>
 <hr>
 
-<h2>Local Enumeration</h2>
-
-<h3>User Flag Discovery</h3>
+<h3>Local Enumeration</h2>
 
 <pre><code>find / -name user.txt 2&gt;/dev/null</code></pre>
 
@@ -124,7 +155,7 @@ The initial shell lacked job control and was upgraded to a fully interactive Bas
 <img src="https://imgur.com/bXZgiap.png" height="70%" width="70%" alt="getting user flag"/>
 <hr>
 
-<h2>Privilege Escalation</h2>
+<h3>Privilege Escalation</h3>
 
 <h3>SUID Enumeration</h3>
 
