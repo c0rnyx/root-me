@@ -145,7 +145,7 @@ The initial shell lacked job control and was upgraded to a fully interactive Bas
 <img src="https://imgur.com/mievAV3.png" height="50%" width="50%" alt="stabilizing the shell"/>
 <hr>
 
-<h3>Local Enumeration</h2>
+<h3>6.Local Enumeration</h2>
 
 <pre><code>find / -name user.txt 2&gt;/dev/null</code></pre>
 
@@ -155,7 +155,7 @@ The initial shell lacked job control and was upgraded to a fully interactive Bas
 <img src="https://imgur.com/bXZgiap.png" height="70%" width="70%" alt="getting user flag"/>
 <hr>
 
-<h3>Privilege Escalation</h3>
+<h3>7.Privilege Escalation</h3>
 
 <h3>SUID Enumeration</h3>
 
